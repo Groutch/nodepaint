@@ -18,13 +18,15 @@ function setup() {
         title.innerHTML = "Nombre d'utilisateur: " + data;
     });
     socket.on('getCanvas', function (data){
-        //fonction pour retransformer un uri en image
-        var image=document.getElementById("imgholder");
-        image.src=data;
+        //on recupere l'image sous forme de dataurl et on l'insere dans le canvas
+        //Mais pour le moment ça ne fonctionne pas !
+        console.log("je suis censé afficher le Canvas rempli !")
+        var imgstore= loadImage(data); 
+        image(imgstore,0,0);
+        console.log(data);
     });
     socket.on('askCanvas', function (){
         socket.emit('sendCanvas',sharedCanvas.toDataURL());
-        console.log(sharedCanvas.toDataURL());
     });
 }
 

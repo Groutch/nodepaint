@@ -31,7 +31,7 @@ io.on("connection", function (socket) {
         imgURL=data;
     });
     //puis on l'envoie uniquement au client qui s'est connecté
-    if (nbusers>1 && imgURL!=""){
+    if (imgURL!=""){
         socket.emit('getCanvas', imgURL);
     }
     //Lorsqu'un client dessine, on envoie ce qu'il dessine à tous les autres clients
