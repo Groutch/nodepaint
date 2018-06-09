@@ -1,14 +1,12 @@
 var socket;
 var colorPicker = document.getElementById("colorpicker");
 var sizeLine = document.getElementById("sizeLine");
-/*colorPicker.addEventListener("input", function () {
-    var pickedColor = colorPicker.value;
-    console.log(pickedColor);
-}, false);*/
+var sharedCanvas
 
 function setup() {
     createCanvas(800, 600);
     background(50);
+    sharedCanvas = document.getElementById("defaultCanvas0");
     socket = io();
     socket.on('drawSend', function (data) {
         strokeWeight(data.size);
@@ -19,11 +17,19 @@ function setup() {
         var title = document.getElementById("numusers");
         title.innerHTML = "Nombre d'utilisateur: " + data;
     });
+    socket.on('getCanvas', function (data){
+        //fonction pour retransformer un uri en image
+        var image=document.getElementById("imgholder");
+        image.src=data;
+    });
+    socket.on('askCanvas', function (){
+        socket.emit('sendCanvas',sharedCanvas.toDataURL());
+        console.log(sharedCanvas.toDataURL());
+    });
 }
 
 function mouseDragged() {
     console.log(mouseX + "," + mouseY+", selectedIndex:"+sizeLine.selectedIndex);
-    
     var data = {
         x: mouseX,
         y: mouseY,
@@ -37,8 +43,10 @@ function mouseDragged() {
     strokeWeight(data.size);
     stroke(data.cl);
     line(data.x, data.y, data.px, data.py);
+    
+    
 }
 
 function draw() {
-
+    
 }

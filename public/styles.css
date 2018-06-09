@@ -1,0 +1,8 @@
+canvas{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#imgholder{
+    display: none;
+}
